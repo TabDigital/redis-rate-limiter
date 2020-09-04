@@ -137,6 +137,28 @@ rate: '100/h'
 
 *Note:* the rate is parsed ahead of time, so this notation doesn't affect performance.
 
+### `deleteImmediatelyIfRaceCondition`
+If a race condition occurs, redis-rate-limiter sets a expire date to corresponding entry.
+You can set this option to true, if you want to delete this corrupted entry immediately after occurring a possible
+race condition.
+
+Default is `false`
+
+```js
+deleteImmediatelyIfRaceCondition: true
+```
+
+### `onPossibleRaceCondition`
+A callback function called after occurring a possible race condition.
+
+Definition: `(key: string): void`
+
+```js
+onPossibleRaceCondition: function(key) {
+    console.log(`Race condition detected for ${key}`);
+}
+```
+
 ## HTTP middleware
 
 This package  contains a pre-built middleware,
